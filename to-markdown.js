@@ -500,7 +500,9 @@ module.exports = [
       var src = node.getAttribute('src') || ''
       var title = node.title || ''
       var titlePart = title ? ' "' + title + '"' : ''
-      return src ? '![' + alt + ']' + '(' + src + titlePart + ')' : ''
+      alt = alt ? alt : title
+      alt = alt ? alt : 'alt'
+      return src ? '\n![' + alt + ']' + '(' + src + titlePart + ')' : ''
     }
   },
 
