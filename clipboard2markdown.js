@@ -90,14 +90,14 @@
     {
       filter: 'li',
       replacement: function (content, node) {
-        content = content.replace(/^\s+/, '').replace(/\n/gm, '\n    ');
+        content = content.replace(/^\s+/, '').replace(/\n/gm, '    ');
         var prefix = '- ';
         var parent = node.parentNode;
 
         if (/ol/i.test(parent.nodeName)) {
           var index = Array.prototype.indexOf.call(parent.children, node) + 1;
           prefix = index + '. ';
-          while (prefix.length < 4) {
+          while (prefix.length < 3) {
             prefix += ' ';
           }
         }
