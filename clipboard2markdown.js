@@ -7,7 +7,7 @@
       filter: 'h1',
       replacement: function (content, node) {
         var underline = Array(content.length + 1).join('=');
-        return '\n\n' + content + '\n' + underline + '\n\n';
+        return '---\n\n# ' + content + '\n';
       }
     },
 
@@ -15,7 +15,7 @@
       filter: 'h2',
       replacement: function (content, node) {
         var underline = Array(content.length + 1).join('-');
-        return '\n\n' + content + '\n' + underline + '\n\n';
+        return '---\n\n## ' + content + '\n';
       }
     },
 
@@ -91,7 +91,7 @@
       filter: 'li',
       replacement: function (content, node) {
         content = content.replace(/^\s+/, '').replace(/\n/gm, '\n    ');
-        var prefix = '-   ';
+        var prefix = '- ';
         var parent = node.parentNode;
 
         if (/ol/i.test(parent.nodeName)) {
