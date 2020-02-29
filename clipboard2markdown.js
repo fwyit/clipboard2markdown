@@ -7,7 +7,7 @@
       filter: 'h1',
       replacement: function (content, node) {
         var underline = Array(content.length + 1).join('=');
-        return '\n\n' + content + '\n' + underline + '\n\n';
+        return '---\n\n# ' + content + '\n';
       }
     },
 
@@ -15,7 +15,7 @@
       filter: 'h2',
       replacement: function (content, node) {
         var underline = Array(content.length + 1).join('-');
-        return '\n\n' + content + '\n' + underline + '\n\n';
+        return '---\n\n## ' + content + '\n';
       }
     },
 
@@ -36,7 +36,7 @@
     {
       filter: 'br',
       replacement: function () {
-        return '\\\n';
+        return '\n';
       }
     },
 
@@ -90,14 +90,14 @@
     {
       filter: 'li',
       replacement: function (content, node) {
-        content = content.replace(/^\s+/, '').replace(/\n/gm, '\n    ');
-        var prefix = '-   ';
+        content = content.replace(/^\s+/, '').replace(/\n/gm, '    ');
+        var prefix = '- ';
         var parent = node.parentNode;
 
         if (/ol/i.test(parent.nodeName)) {
           var index = Array.prototype.indexOf.call(parent.children, node) + 1;
           prefix = index + '. ';
-          while (prefix.length < 4) {
+          while (prefix.length < 3) {
             prefix += ' ';
           }
         }
@@ -116,7 +116,7 @@
               .replace(/\u2014/g, '---')
               .replace(/\u2026/g, '...')
               .replace(/[ ]+\n/g, '\n')
-              .replace(/\s*\\\n/g, '\\\n')
+              .replace(/\s*\\\n/g, '\n')
               .replace(/\s*\\\n\s*\\\n/g, '\n\n')
               .replace(/\s*\\\n\n/g, '\n\n')
               .replace(/\n-\n/g, '\n')
@@ -129,6 +129,29 @@
   var convert = function (str) {
     return escape(toMarkdown(str, { converters: pandoc, gfm: true }));
   }
+
+  var insert = function (myField, myValue) {
+      if (document.selection) {
+          myField.focus();
+          sel = document.selection.createRange();
+          sel.text = myValue;
+          sel.select()
+      } else {
+          if (myField.selectionStart || myField.selectionStart == "0") {
+              var startPos = myField.selectionStart;
+              var endPos = myField.selectionEnd;
+              var beforeValue = myField.value.substring(0, startPos);
+              var afterValue = myField.value.substring(endPos, myField.value.length);
+              myField.value = beforeValue + myValue + afterValue;
+              myField.selectionStart = startPos + myValue.length;
+              myField.selectionEnd = startPos + myValue.length;
+              myField.focus()
+          } else {
+              myField.value += myValue;
+              myField.focus()
+          }
+      }
+  };
 
   // http://stackoverflow.com/questions/2176861/javascript-get-clipboard-data-on-paste-event-cross-browser
   document.addEventListener('DOMContentLoaded', function () {
@@ -152,7 +175,8 @@
       setTimeout(function () {
         var html = pastebin.innerHTML;
         var markdown = convert(html);
-        output.value = markdown;
+        // output.value = markdown;
+        insert(output, markdown);
         wrapper.classList.remove('hidden');
         output.focus();
         output.select();

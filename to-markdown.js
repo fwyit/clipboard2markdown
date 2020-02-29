@@ -197,7 +197,7 @@ toMarkdown = function (input, options) {
   }
 
   // Escape potential ol triggers
-  input = input.replace(/(>[\r\n\s]*)(\d+)\.(&nbsp;| )/g, '$1$2\\.$3')
+  input = input.replace(/(>[\r\n\s]*)(\d+)\.(&nbsp;| )/g, '$1$2.$3')
 
   var clone = htmlToDom(input).body
   var nodes = bfsOrder(clone)
@@ -313,7 +313,7 @@ module.exports = [
       node.firstChild.nodeName === 'CODE'
     },
     replacement: function (content, node) {
-      return '\n\n```\n' + node.firstChild.textContent + '\n```\n\n'
+      return '\n\n``` text\n' + node.firstChild.textContent + '```\n\n'
     }
   },
 
@@ -326,7 +326,8 @@ module.exports = [
     },
     replacement: function (content, node) {
       var language = node.parentNode.className.match(highlightRegEx)[1]
-      return '\n\n```' + language + '\n' + node.textContent + '\n```\n\n'
+      language = language? language : 'text'
+      return '\n\n``` ' + language + '\n' + node.textContent + '```\n\n'
     }
   },
 
@@ -500,7 +501,9 @@ module.exports = [
       var src = node.getAttribute('src') || ''
       var title = node.title || ''
       var titlePart = title ? ' "' + title + '"' : ''
-      return src ? '![' + alt + ']' + '(' + src + titlePart + ')' : ''
+      alt = alt ? alt : title
+      alt = alt ? alt : 'alt'
+      return src ? '\n![' + alt + ']' + '(' + src + titlePart + ')' : ''
     }
   },
 
@@ -528,11 +531,11 @@ module.exports = [
     filter: 'li',
     replacement: function (content, node) {
       content = content.replace(/^\s+/, '').replace(/\n/gm, '\n    ')
-      var prefix = '*   '
+      var prefix = '* '
       var parent = node.parentNode
       var index = Array.prototype.indexOf.call(parent.children, node) + 1
 
-      prefix = /ol/i.test(parent.nodeName) ? index + '.  ' : '*   '
+      prefix = /ol/i.test(parent.nodeName) ? index + '. ' : '* '
       return prefix + content
     }
   },

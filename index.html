@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Paste to Markdown</title>
+        <title>HTML转MarkDown</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -46,15 +46,14 @@
     <body>
         <div class="container">
             <section id="info">
-                <h1>Paste to Markdown</h1>
-                <h2>Instructions</h2>
+                <h1>页面生成MarkDown文本内容</h1><br/>
+                <h2>指导手册</h2><br/>
                 <ol>
-                    <li>Find the text to convert to Markdown (<i>e.g.</i>, in another browser tab)</li>
-                    <li>Copy it to the clipboard (<code>Ctrl+C</code>, or <code>&#8984;+C</code> on Mac)</li>
-                    <li>Paste it into this window (<code>Ctrl+V</code>, or <code>&#8984;+V</code> on Mac)</li>
-                    <li>The converted Markdown will appear!</li>
+                    <li>请从其他地方(如其他tab页)复制需要处理的HTML内容</li>
+                    <li>将其复制(<code>Ctrl+C</code>, Mac: <code>&#8984;+C</code>)</li>
+                    <li>粘贴至此页(<code>Ctrl+V</code>, Mac: <code>&#8984;+V</code>)</li>
+                    <li>等待转换即可</li>
                 </ol>
-                <p>The conversion is carried out by <a href="https://github.com/domchristie/to-markdown">to-markdown</a>, a Markdown converter written in JavaScript and running locally in the browser.</p>
             </section>
             <div contenteditable="true" id="pastebin"></div>
             <section class="hidden" id="wrapper">
