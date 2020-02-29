@@ -14,7 +14,7 @@ Demo
 
 ### Interactive
 
-<http://euangoddard.github.io/clipboard2markdown/>
+<https://fwyit.github.io/h2m/>
 
 ### Video
 
