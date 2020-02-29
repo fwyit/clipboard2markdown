@@ -36,7 +36,7 @@
     {
       filter: 'br',
       replacement: function () {
-        return '\\\n';
+        return '\n';
       }
     },
 
@@ -116,7 +116,7 @@
               .replace(/\u2014/g, '---')
               .replace(/\u2026/g, '...')
               .replace(/[ ]+\n/g, '\n')
-              .replace(/\s*\\\n/g, '\\\n')
+              .replace(/\s*\\\n/g, '\n')
               .replace(/\s*\\\n\s*\\\n/g, '\n\n')
               .replace(/\s*\\\n\n/g, '\n\n')
               .replace(/\n-\n/g, '\n')
