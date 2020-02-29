@@ -313,7 +313,7 @@ module.exports = [
       node.firstChild.nodeName === 'CODE'
     },
     replacement: function (content, node) {
-      return '\n\n```\n' + node.firstChild.textContent + '\n```\n\n'
+      return '\n\n``` text\n' + node.firstChild.textContent + '\n```\n\n'
     }
   },
 
@@ -326,7 +326,8 @@ module.exports = [
     },
     replacement: function (content, node) {
       var language = node.parentNode.className.match(highlightRegEx)[1]
-      return '\n\n```' + language + '\n' + node.textContent + '\n```\n\n'
+      language = language? language : 'text'
+      return '\n\n``` ' + language + '\n' + node.textContent + '\n```\n\n'
     }
   },
 
